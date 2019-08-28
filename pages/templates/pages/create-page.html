@@ -1,0 +1,12 @@
+{% extends 'pages/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+</div>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% include 'pages/includes/form.html' %}
+    <input type="submit" class="btn btn-success" value="Create">
+    <a href="{% url 'pages:pages-list' %}" class="btn btn-outline-secondary">Cancel</a>
+</form>
+{% endblock %}
