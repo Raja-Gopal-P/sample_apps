@@ -1,0 +1,33 @@
+{% extends 'pages/base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+
+<div class="mb-4">
+</div>
+<table class="table table-striped mb-4">
+    <thead class="thead-dark">
+      <tr>
+        <th>Page</th>
+        <th>Created</th>
+        <th>Last Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for page in pages %}
+    <tr>
+        <td>
+            <a href="#">{{ page.title }}</a>
+        </td>
+        <td>
+            {{ page.created }}
+        </td>
+        <td>
+            {{ page.modified|naturaltime }}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

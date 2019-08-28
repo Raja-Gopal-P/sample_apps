@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.db import models
 from django.db.utils import IntegrityError
-from django_extensions.db.models import TimeStampedModel
 
 from ..models import Page
 
