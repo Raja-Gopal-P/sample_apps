@@ -1,6 +1,6 @@
 {% extends 'pages/base.html' %}
 
-{% block title %} Create Page {% endblock %}
+{% block title %} Edit Page {% endblock %}
 
 {% block content %}
 
@@ -10,7 +10,7 @@
 <form method="post" novalidate>
     {% csrf_token %}
     {% include 'pages/includes/form.html' %}
-    <input type="submit" class="btn btn-success" value="Create">
+    <input type="submit" class="btn btn-success" value="Update">
     <a href="{% url 'pages:pages-list' %}" class="btn btn-outline-secondary">Cancel</a>
 </form>
 

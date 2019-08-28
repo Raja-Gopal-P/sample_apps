@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 
 from .models import Page
@@ -15,3 +15,11 @@ class PageCreationView(CreateView):
     model = Page
     fields = ('title', 'slug', 'content_html', 'ordering',)
     template_name = 'pages/create-page.html'
+
+
+class PageUpdateView(UpdateView):
+    success_url = reverse_lazy('pages:pages-list')
+    model = Page
+    fields = ('title', 'slug', 'content_html', 'ordering',)
+    template_name = 'pages/edit-page.html'
+    slug_url_kwarg = 'slug'
