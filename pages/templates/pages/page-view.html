@@ -1,0 +1,23 @@
+{% extends 'pages/base.html' %}
+
+{% load humanize %}
+
+{% block title %} {{ page.title }} {% endblock %}
+
+{% block nav_bar_contents %}
+<a href="{% url 'custom-admin:edit-page' page.slug %}" class="btn btn-outline-secondary">Edit Page</a>
+<a href="#" class="btn btn-outline-secondary ml-2">Delete Page</a>
+{% endblock %}
+
+{% block divproperty %}
+style="padding-left:20px;padding-right:20px;"
+{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+</div>
+<h1> {{ page.title }} </h1>
+Updated {{ page.modified|naturaltime }}
+<div class="dropdown-divider"></div>
+{{ page.content_html|safe }}
+{% endblock %}
