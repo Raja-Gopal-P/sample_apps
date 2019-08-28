@@ -1,0 +1,16 @@
+{% extends 'pages/base.html' %}
+
+{% block title %} Delete Page {% endblock %}
+
+{% block content %}
+<div class="mb-4">
+</div>
+<form method="post">
+    {% csrf_token %}
+    <p>
+        Are you sure to delete page - <a href="{% url 'pages:page-view' page.slug %}"> {{ page.title }} </a>
+    </p>
+    <input type="submit" class="btn btn-success" value="Delete">
+    <a href="{% url 'pages:pages-list' %}" class="btn btn-outline-secondary">Cancel</a>
+</form>
+{% endblock %}

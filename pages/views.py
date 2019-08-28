@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 from django.urls import reverse_lazy
 
 from .models import Page
@@ -31,3 +31,12 @@ class PageView(DetailView):
     slug_url_kwarg = 'slug'
 
     template_name = 'pages/page-view.html'
+
+
+class PageDeleteView(DeleteView):
+    model = Page
+    slug_url_kwarg = 'slug'
+    context_object_name = 'page'
+
+    template_name = 'pages/delete-page.html'
+    success_url = reverse_lazy('pages:pages-list')

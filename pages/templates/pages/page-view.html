@@ -6,7 +6,7 @@
 
 {% block nav_bar_contents %}
 <a href="{% url 'custom-admin:edit-page' page.slug %}" class="btn btn-outline-secondary">Edit Page</a>
-<a href="#" class="btn btn-outline-secondary ml-2">Delete Page</a>
+<a href="{% url 'custom-admin:delete-page' page.slug %}" class="btn btn-outline-secondary ml-2">Delete Page</a>
 {% endblock %}
 
 {% block divproperty %}
