@@ -1,4 +1,5 @@
 from django.db import models
+from django_extensions.db.models import TimeStampedModel
 from django.contrib.gis.db.models import PointField
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
@@ -25,7 +26,7 @@ class City(models.Model):
         return self.city_name
 
 
-class Place(models.Model):
+class Place(TimeStampedModel):
 
     title = models.CharField(max_length=50, unique=True)
     location = PointField()
@@ -34,4 +35,4 @@ class Place(models.Model):
     phone = models.CharField(validators=[mobile_number_regex_validator.__call__], max_length=18, unique=True)
     city = models.ForeignKey(to=City, on_delete=models.CASCADE, related_name='places')
     types = models.CharField(validators=[types_regex_validator.__call__], max_length=100)
-    tags = models.CharField(validators=[tags_validator], max_length=100, default=None, blank=True)
+    tags = models.CharField(validators=[tags_validator], max_length=100, default=None, null=True)

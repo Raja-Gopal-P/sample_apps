@@ -42,10 +42,3 @@ class PlacesModelValidation(TestCase):
                                  phone='+91-9566563867', types='abc-def', city=self.city1)
             Place.objects.create(title='P1', location=Point(5, 10), description='Des2', address='add2',
                                  phone='+91-9566563868', types='abc-def', city=self.city2)
-
-    def test_unique_phone_field(self):
-        with self.assertRaises(IntegrityError):
-            Place.objects.create(title='P1', location=Point(5,10), description='Des1', address='add1',
-                                 phone='+91-9566563867', types='abc-def', city=self.city1)
-            Place.objects.create(title='P2', location=Point(5, 10), description='Des2', address='add2',
-                                 phone='+91-9566563867', types='abc-def', city=self.city2)

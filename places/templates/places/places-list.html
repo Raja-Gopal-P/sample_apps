@@ -1,0 +1,35 @@
+{% extends 'places/base.html' %}
+
+{% load humanize %}
+
+{% block title %} Places {% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+</div>
+<table class="table table-striped mb-4">
+    <thead class="thead-dark">
+      <tr>
+        <th>Place</th>
+        <th>Created</th>
+        <th>Last Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for place in places %}
+    <tr>
+        <td>
+            <a href="#">{{ place.title }}</a>
+        </td>
+        <td>
+            {{ place.created }}
+        </td>
+        <td>
+            {{ place.modified|naturaltime }}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
