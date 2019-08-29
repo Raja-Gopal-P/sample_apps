@@ -1,0 +1,77 @@
+{% extends 'pages/base.html' %}
+
+{% block title %} Reorder Pages {% endblock %}
+
+{% block css %}
+<style>
+    .outer-box{
+    position:relative;
+    margin-top:20px;
+    margin-bottom:20px;
+    margin-left:20%;
+    margin-right:20%;
+    border:solid;
+    border-color:blue;
+    border-width:1px;
+    padding:10px;
+    }
+    .page-div{
+    vertical-align:middle;
+    padding:20px;
+    margin:5px;
+    background-color:#dfdfe6d9;
+    }
+    .m-20{
+    margin:20px;
+    }
+    .sortable{
+    overflow:auto;
+    max-height:70%;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script>
+$(function () {
+    $(".sortable").sortable();
+});
+function validateForm()
+{
+orderData = $('.sortable').sortable('serialize');
+document.getElementById('items_order').value=orderData
+return true;
+}
+</script>
+{% endblock %}
+
+{% block divproperty %}
+{% endblock %}
+
+{% block content %}
+<div class="outer-box">
+    <h3 style="margin-bottom:20px; margin-left:5px;">Current Pages Order</h3>
+    <div class="sortable">
+    {% if pages %}
+        {% for page in pages %}
+    <div class="page-div" id="item-{{ page.id }}">
+        {{ page.title }}
+    </div>
+        {% endfor %}
+        <form method="post" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <input type="hidden" name="items_order" id="items_order" value=""/>
+        <center class="m-20">
+            <input type="submit" value="Save" class="btn btn-primary ml-2" onclick="onSaveOrder()"/>
+            <a href="/" class="btn btn-outline-secondary">Cancel</a>
+        </center>
+        </form>
+        {% else %}
+        <p style="margin-left:5px;">
+            No Pages found
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
