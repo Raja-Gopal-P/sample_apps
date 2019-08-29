@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django.contrib.humanize',
     'django.contrib.gis',
+    'leaflet',
     'pages.apps.PagesConfig',
     'places.apps.PlacesConfig',
 ]

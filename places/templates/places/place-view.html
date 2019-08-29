@@ -1,0 +1,59 @@
+{% extends 'places/base.html' %}
+
+{% load humanize %}
+
+{% load leaflet_tags %}
+
+{% load places_filters %}
+
+{% block css %}
+
+{% leaflet_css %}
+
+{% endblock %}
+
+{% block js %}
+
+{% leaflet_js %}
+
+<script type="text/javascript">
+    function map_init(map, options) {
+        var lat = "{{ place.location.x }}";
+        var lon = "{{ place.location.y }}";
+        map.setView([lat, lon], 12);
+        L.marker([lat, lon]).addTo(map);
+    }
+</script>
+
+{% endblock %}
+
+{% block title %} {{ place.title }} {% endblock %}
+
+{% block nav_bar_contents %}
+<a href="{% url 'places:places-list' %}" class="btn btn-outline-secondary">Home</a>
+{% endblock %}
+
+{% block divproperty %}
+style="padding-left:20px;padding-right:20px;"
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+</div>
+
+<h1> {{ place.title }} </h1>
+
+<h6 style="display:inline">Tags:</h6> {{ place.tags|empty_filter:'--' }} <br>
+
+<div class="dropdown-divider"></div>
+
+<div class="mb-4"> <h6 style="display:inline;"> Place type: </h6> {{ place.types }} </div>
+<div class="mb-4"> <h6 style="display:inline;"> City: </h6> {{ place.city }} </div>
+<div class="mb-4"> <h6> Description: </h6> {{ place.description|safe }} </div>
+<div class="mb-4"> <h6> Address: </h6> {{ place.address }} </div>
+<div class="mb-4"> <h6 style="display:inline;"> Contact: </h6> {{ place.phone }} </div>
+<div class="mb-4"> <h6 style="display:inline;"> Location: </h6> {{ place.location.x }}<sup>o</sup>N, {{ place.location.y }}<sup>o</sup>E </div>
+
+{% leaflet_map "main" callback="map_init" %}
+{% endblock %}

@@ -20,7 +20,7 @@
     {% for place in places %}
     <tr>
         <td>
-            <a href="#">{{ place.title }}</a>
+            <a href="{% url 'places:place-view' place.id %}">{{ place.title }}</a>
         </td>
         <td>
             {{ place.created }}
