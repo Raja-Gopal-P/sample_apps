@@ -1,0 +1,31 @@
+{% extends 'places/base.html' %}
+
+{% load leaflet_tags %}
+
+{% block title %} Create Place {% endblock %}
+
+{% block css %}
+
+{% leaflet_css plugins="forms" %}
+
+{% endblock %}
+
+{% block js %}
+
+{% leaflet_js plugins="forms" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+</div>
+
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% include 'places/includes/form.html' %}
+    <input type="submit" class="btn btn-success" value="Create">
+    <a href="{% url 'places:places-list' %}" class="btn btn-outline-secondary">Cancel</a>
+</form>
+
+{% endblock %}

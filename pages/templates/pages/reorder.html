@@ -32,7 +32,8 @@
 {% endblock %}
 
 {% block js %}
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 <script>
 $(function () {
     $(".sortable").sortable();
@@ -64,7 +65,7 @@ return true;
             <input type="hidden" name="items_order" id="items_order" value=""/>
         <center class="m-20">
             <input type="submit" value="Save" class="btn btn-primary ml-2" onclick="onSaveOrder()"/>
-            <a href="/" class="btn btn-outline-secondary">Cancel</a>
+            <a href="{% url 'pages:pages-list' %}" class="btn btn-outline-secondary">Cancel</a>
         </center>
         </form>
         {% else %}

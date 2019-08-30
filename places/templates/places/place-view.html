@@ -18,8 +18,8 @@
 
 <script type="text/javascript">
     function map_init(map, options) {
-        var lat = "{{ place.location.x }}";
-        var lon = "{{ place.location.y }}";
+        var lat = "{{ place.location.y }}";
+        var lon = "{{ place.location.x }}";
         map.setView([lat, lon], 12);
         L.marker([lat, lon]).addTo(map);
     }
@@ -53,7 +53,7 @@ style="padding-left:20px;padding-right:20px;"
 <div class="mb-4"> <h6> Description: </h6> {{ place.description|safe }} </div>
 <div class="mb-4"> <h6> Address: </h6> {{ place.address }} </div>
 <div class="mb-4"> <h6 style="display:inline;"> Contact: </h6> {{ place.phone }} </div>
-<div class="mb-4"> <h6 style="display:inline;"> Location: </h6> {{ place.location.x }}<sup>o</sup>N, {{ place.location.y }}<sup>o</sup>E </div>
+<div class="mb-4"> <h6 style="display:inline;"> Location: </h6> {{ place.location.y }}<sup>o</sup>N, {{ place.location.x }}<sup>o</sup>E </div>
 
 {% leaflet_map "main" callback="map_init" %}
 {% endblock %}

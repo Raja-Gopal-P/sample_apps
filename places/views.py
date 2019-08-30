@@ -1,6 +1,8 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
 
 from .models import Place
+from .forms import CreatePlaceForm
 
 
 class PlacesListView(ListView):
@@ -14,3 +16,9 @@ class PlaceDetailView(DetailView):
     model = Place
     pk_url_kwarg = 'id'
     template_name = 'places/place-view.html'
+
+
+class PlaceCreateView(CreateView):
+    success_url = reverse_lazy('places:places-list')
+    form_class = CreatePlaceForm
+    template_name = 'places/create-place.html'
