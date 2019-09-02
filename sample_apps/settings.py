@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'leaflet',
     'pages.apps.PagesConfig',
     'places.apps.PlacesConfig',
+    'events.apps.EventsConfig',
+    'taggit',
 ]
 
 MIDDLEWARE = [
