@@ -38,3 +38,4 @@ class EventTiming(models.Model):
             models.UniqueConstraint(fields=('event', 'start_time', 'end_time'), name='unique_time_interval'),
             models.CheckConstraint(check=models.Q(start_time__lt=models.F('end_time')), name='valid_time_interval'),
         ]
+        ordering = ('start_time', 'end_time',)

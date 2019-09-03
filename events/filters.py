@@ -5,7 +5,7 @@ from .models import Event
 
 class EventsDateFilter(FilterSet):
 
-    date = DateFilter(field_name='date', help_text='Enter date in format: yyyy-mm-dd.')
+    date = DateFilter(field_name='date', help_text='Enter date in format: yyyy-mm-dd')
 
     class Meta:
         model = Event

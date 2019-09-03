@@ -1,0 +1,60 @@
+{% extends 'events/base.html' %}
+
+{% load places_filters %}
+
+{% block title %} {{ event.title }} {% endblock %}
+
+{% block nav_bar_contents %}
+<a href="{% url 'events:events-list-date-filter' %}" class="btn btn-outline-secondary">Home</a>
+{% endblock %}
+
+{% block divproperty %}
+style="padding-left:20px;padding-right:20px;"
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+</div>
+
+<h1> {{ event.title }} </h1>
+
+<h6 style="display:inline">Tags:</h6>
+
+{% if event.tags.names %}
+{% for tag in event.tags.all %}
+{{ tag }},
+{% endfor %}
+{% else %}
+--
+{% endif %}
+
+<div class="dropdown-divider"></div>
+
+<div class="mb-4"> <h6 style="display:inline;"> Date: </h6> {{ event.date }} </div>
+<div class="mb-4"> <h6 style="display:inline;"> Place: </h6>
+    <a href="{% url 'places:place-view' event.place.id %}">
+        {{ event.place.title }}
+    </a>
+</div>
+<div class="mb-4">
+    <h6 style="display:inline;"> Timings: </h6>
+    {% if event.full_day_event %}
+    Full day
+    {% else %}
+    {% if event.event_timings.exists %}
+    <div style="margin-top:20px">
+        <ul>
+            {% for timing in event.event_timings.all %}
+            <li>
+                {{ timing.start_time }} - {{ timing.end_time }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    Not Specified
+    {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

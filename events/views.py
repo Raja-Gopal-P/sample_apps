@@ -43,3 +43,4 @@ class EventDetailView(DetailView):
     context_object_name = 'event'
     model = Event
     pk_url_kwarg = 'id'
+    template_name = 'events/event_view.html'
