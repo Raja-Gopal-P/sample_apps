@@ -1,0 +1,47 @@
+{% extends 'events/base.html' %}
+
+{% load humanize %}
+
+{% load places_filters %}
+
+{% block title %} Events {% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+</div>
+
+<!--form method="get">
+    {% include 'places/includes/form.html' %}
+    <input type="submit" class="btn btn-success" value="Filter"/>
+</form-->
+
+<table class="table table-striped mb-4">
+    <thead class="thead-dark">
+      <tr>
+        <th>Event</th>
+        <th>date</th>
+        <th>Created by</th>
+        <th>Created on</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for event in events %}
+    <tr>
+        <td>
+            <a href="#">{{ event.title }}</a>
+        </td>
+        <td>
+            {{ event.date }}
+        </td>
+        <td>
+            {{ event.created_by.username|empty_filter:"&lt;Anonymous User&gt;" }}
+        </td>
+        <td>
+            {{ event.created|naturaltime }}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

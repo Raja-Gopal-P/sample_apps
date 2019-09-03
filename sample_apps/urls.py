@@ -20,5 +20,6 @@ from accounts.admin import custom_admin
 urlpatterns = [
     path('admin/', custom_admin.urls),
     path('pages/', include('pages.urls')),
-    path('places/', include('places.urls'))
+    path('places/', include('places.urls')),
+    path('events/', include('events.urls')),
 ]
