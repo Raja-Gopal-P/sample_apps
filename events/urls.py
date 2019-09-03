@@ -1,9 +1,12 @@
 from django.urls import path
-from .views import EventListView
+from .views import EventDateFilterRedirect, filter_by_date, filter_by_month, filter_by_year
 
 
 app_name = 'events'
 
 urlpatterns = [
-    path('', EventListView.as_view(), name='events-list'),
+    path('', EventDateFilterRedirect.as_view(), name='events-list'),
+    path('filter-by-date/', filter_by_date, name='events-list-date-filter'),
+    path('filter-by-month/', filter_by_month, name='events-list-month-filter'),
+    path('filter-by-year/', filter_by_year, name='events-list-year-filter'),
 ]
