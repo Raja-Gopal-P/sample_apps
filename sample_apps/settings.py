@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'places.apps.PlacesConfig',
     'events.apps.EventsConfig',
+    'bookmarks.apps.BookmarksConfig',
     'taggit',
 ]
 
