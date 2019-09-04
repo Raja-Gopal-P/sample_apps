@@ -34,11 +34,8 @@ class EventsFilterByDateTest(EventTestMeta):
                                                                               self.event.date.year))
         response = self.client.get(url)
         form = response.context.get('form')
-        error = False
-        for field in form:
-            error = error or field.errors
-        self.assertTrue(error)
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context.get('form').errors)
 
     def test_valid_date_filter_response(self):
         url = '{url}?date={date}'.format(url=self.url, date=self.event2.date.__str__())
@@ -74,11 +71,8 @@ class EventsFilterByMonthTest(EventTestMeta):
         url = '{url}?month={month}'.format(url=self.url, month=0)
         response = self.client.get(url)
         form = response.context.get('form')
-        error = False
-        for field in form:
-            error = error or field.errors
-        self.assertTrue(error)
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context.get('form').errors)
 
     def test_valid_month_filter_response(self):
         url = '{url}?month={month}'.format(url=self.url, month=self.event2.date.month)
@@ -114,11 +108,8 @@ class EventsFilterByYearTest(EventTestMeta):
         url = '{url}?year={year}'.format(url=self.url, year=0)
         response = self.client.get(url)
         form = response.context.get('form')
-        error = False
-        for field in form:
-            error = error or field.errors
-        self.assertTrue(error)
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context.get('form').errors)
 
     def test_valid_month_filter_response(self):
         event = Event.objects.create(title='Event', date=date(year=2017, month=8, day=26), place=self.place, )
