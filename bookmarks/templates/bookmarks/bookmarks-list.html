@@ -1,0 +1,58 @@
+{% extends 'bookmarks/base.html' %}
+
+{% block css %}
+{{ block.super }}
+.bookmark{
+position:relative;
+background-color:#8080802e;
+height:50px;
+margin:10px;
+padding:10px;
+}
+.bookmark .option{
+position:absolute;
+font-size:20px;
+right:10px;
+}
+.clickable{
+color:#808080bd;
+cursor:pointer;
+}
+.clickable:hover{
+color:#808080ff;
+}
+.inline{
+display:inline-block;
+}
+.drop-left-menu-ref::after{
+    color:gray;
+    font-size:25px;
+    margin-left:20px;
+    content: "\2807";
+    cursor:pointer;
+    }
+{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+</div>
+{% for bookmark in bookmarks %}
+<div class="bookmark">
+    <div class="inline">
+        <span class="clickable">{{ bookmark.name }}</span>
+    </div>
+    <div class="inline option">
+        <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('myDropdown_{{ bookmark.id }}')">
+                <div id="myDropdown_{{ bookmark.id }}" class="dropdown-content">
+                    <a href="#">Edit bookmark</a>
+                    <a href="#">Remove Bookmark</a>
+                    {% if user.is_superuser %}
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'custom-admin:logout' %}">Log out</a>
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

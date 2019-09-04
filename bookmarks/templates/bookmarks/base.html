@@ -1,0 +1,109 @@
+<html>
+<head>
+    <title> Bookmarks </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+    {% block css %}
+    .drop-left-menu-ref {
+    position: relative;
+    display: inline-block;
+    }
+    .drop-left-menu-ref::after{
+    color:white;
+    font-size:25px;
+    margin-left:20px;
+    content: "\2807";
+    cursor:pointer;
+    }
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    right:0;
+    top:100%;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    }
+    .dropdown-content a {
+    color: black;
+    font-size:15px;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    }
+    .dropdown-content a:hover {
+    background-color: #ddd;
+    }
+    .show {
+    display: block;
+    }
+    {% endblock %}
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script>
+    {% block js %}
+        function onDropLeftDivClick(id) {
+        closeAllDropDownMenu()
+        document.getElementById(id).classList.toggle("show");
+        }
+        function closeAllDropDownMenu()
+        {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+        }
+      }
+    }
+        window.onclick = function(event) {
+        if (!event.target.matches('.drop-left-menu-ref')) {
+        closeAllDropDownMenu()
+      }
+    }
+    {% endblock %}
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'bookmarks:bookmarks-index-view' %}">Bookmarks</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainMenu">
+        <div class="form-inline ml-auto" id="filter_form">
+            {% block nav_bar_contents %}
+            <input onchange="location='?filter_by='+this.value;" placeholder="Search"
+                   style="width:300px;"/>
+            {% endblock %}
+            <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('myDropdown')">
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#">Sort by name</a>
+                    <a href="#">Add Bookmark</a>
+                    {% if user.is_superuser %}
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'custom-admin:logout' %}">Log out</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </nav>
+<div {% block divproperty %} class="container" {% endblock %}>
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>
