@@ -1,4 +1,4 @@
-from django.views.generic import DeleteView, CreateView
+from django.views.generic import DeleteView, CreateView, UpdateView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
@@ -34,14 +34,21 @@ class BookmarkCreateView(CreateView):
     def form_invalid(self, form):
         return redirect(self.success_url)
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        form._save_m2m()
-        return response
-
 
 class BookmarkDeleteView(DeleteView):
     model = BookMark
     pk_url_kwarg = 'id'
     success_url = reverse_lazy('bookmarks:bookmarks-index-view')
     http_method_names = ['post']
+
+
+class BookmarkUpdateView(UpdateView):
+    model = BookMark
+    pk_url_kwarg = 'id'
+    context_object_name = 'bookmark'
+    template_name = 'bookmarks/bookmarks-update-view.html'
+    form_class = BookmarkCreationForm
+    success_url = reverse_lazy('bookmarks:bookmarks-index-view')
+
+    def form_invalid(self, form):
+        return redirect(self.success_url)

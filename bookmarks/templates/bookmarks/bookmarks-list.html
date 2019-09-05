@@ -1,5 +1,27 @@
 {% extends 'bookmarks/base.html' %}
 
+{% block js %}
+{{ block.super }}
+<script>
+    function editBookmark(url) {
+    showDialog('my_dialog', 'Edit Bookmark', 'Loading...');
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                showDialog('my_dialog', 'Edit Bookmark', this.responseText);
+            }
+            else {
+                showDialog('my_dialog', 'Edit Bookmark', 'Error Occured');
+            }
+        }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
+    }
+    </script>
+{% endblock %}
+
 {% block content %}
 <div class="mb-4">
 </div>
@@ -12,7 +34,7 @@
     <div class="inline option">
         <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('myDropdown_{{ bookmark.id }}')">
                 <div id="myDropdown_{{ bookmark.id }}" class="dropdown-content">
-                    <a href="#">Edit bookmark</a>
+                    <a onclick="editBookmark('{% url 'bookmarks:bookmark-update-view' bookmark.id %}');">Edit bookmark</a>
                     <form method="post" action="{% url 'bookmarks:bookmark-delete-view' bookmark.id %}" id="remove_form">
                         {% csrf_token %}
                         <a onclick="document.forms['remove_form'].submit();">Remove Bookmark</a>
