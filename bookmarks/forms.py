@@ -10,8 +10,9 @@ class BookmarkCreationForm(ModelForm):
     description = CharField(
         widget=Textarea(
             attrs={'rows': 3,
-                   'placeholder': 'Description in 150 words', }),
+                   }),
         max_length=150,
+        help_text='Description in 150 words',
     )
 
     class Meta:

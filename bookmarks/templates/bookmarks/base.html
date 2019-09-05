@@ -52,8 +52,10 @@
             {% endblock %}
             <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('myDropdown')">
                 <div id="myDropdown" class="dropdown-content">
-                    <a href="#">Sort by name</a>
+                    {% block nav_bar_drop_down %}
+                    <a href="{% url 'bookmarks:bookmarks-sorted-view' %}">Sort by name</a>
                     <a onclick="addBookmark()">Add Bookmark</a>
+                    {% endblock %}
                     {% if user.is_superuser %}
                     <div class="dropdown-divider"></div>
                     <a href="{% url 'custom-admin:logout' %}">Log out</a>

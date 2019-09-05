@@ -16,6 +16,15 @@ def bookmarks_filter(request):
                                                              })
 
 
+def bookmarks_sorted_filter(request):
+    bookmarks = BookMark.objects.all().order_by('name')
+    filtered_bookmarks = BookmarkNameFilter(request.GET, queryset=bookmarks)
+
+    return render(request, 'bookmarks/bookmarks-sort-by-name-list.html', {'bookmarks': filtered_bookmarks.qs,
+                                                                          'form': filtered_bookmarks.form,
+                                                                          })
+
+
 class BookmarkCreateView(CreateView):
     model = BookMark
     template_name = 'bookmarks/bookmarks-create-view.html'

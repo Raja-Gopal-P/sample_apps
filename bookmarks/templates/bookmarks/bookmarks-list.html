@@ -6,9 +6,8 @@
 
 {% for bookmark in bookmarks %}
 <div class="bookmark">
-    <div class="inline" onclick="console.log('At div');">
-        <span class="clickable">{{ bookmark.name }}</span>
-        <a href="{{ bookmark.url }}" class="clickable" style="margin-left:30px;"> {{ bookmark.url }} </a>
+    <div class="inline">
+        <a href="{{ bookmark.url }}" class="clickable"> {{ bookmark.name }} </a>
     </div>
     <div class="inline option">
         <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('myDropdown_{{ bookmark.id }}')">

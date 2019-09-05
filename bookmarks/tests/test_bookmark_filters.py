@@ -25,8 +25,8 @@ class BookmarkListViewTest(TestCase):
         self.assertTrue(response.context.get('form'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response,self.bookmark1.name)
-        self.assertContains(response,self.bookmark2.name)
+        self.assertContains(response, self.bookmark1.name)
+        self.assertContains(response, self.bookmark2.name)
 
     def test_filtered_bookmarks(self):
         bookmark = BookMark.objects.create(name='app', url='url3')

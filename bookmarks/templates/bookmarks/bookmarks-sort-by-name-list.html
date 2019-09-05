@@ -1,0 +1,6 @@
+{% extends 'bookmarks/bookmarks-list.html' %}
+
+{% block nav_bar_drop_down %}
+<a href="{% url 'bookmarks:bookmarks-index-view' %}">Unsort</a>
+<a onclick="addBookmark()">Add Bookmark</a>
+{% endblock %}
