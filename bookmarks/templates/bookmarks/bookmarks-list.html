@@ -1,45 +1,14 @@
 {% extends 'bookmarks/base.html' %}
 
-{% block css %}
-{{ block.super }}
-.bookmark{
-position:relative;
-background-color:#8080802e;
-height:50px;
-margin:10px;
-padding:10px;
-}
-.bookmark .option{
-position:absolute;
-font-size:20px;
-right:10px;
-}
-.clickable{
-color:#808080bd;
-cursor:pointer;
-}
-.clickable:hover{
-color:#808080ff;
-}
-.inline{
-display:inline-block;
-}
-.drop-left-menu-ref::after{
-    color:gray;
-    font-size:25px;
-    margin-left:20px;
-    content: "\2807";
-    cursor:pointer;
-    }
-{% endblock %}
-
 {% block content %}
 <div class="mb-4">
 </div>
+
 {% for bookmark in bookmarks %}
 <div class="bookmark">
-    <div class="inline">
+    <div class="inline" onclick="console.log('At div');">
         <span class="clickable">{{ bookmark.name }}</span>
+        <a href="{{ bookmark.url }}" class="clickable" style="margin-left:30px;"> {{ bookmark.url }} </a>
     </div>
     <div class="inline option">
         <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('myDropdown_{{ bookmark.id }}')">
@@ -54,4 +23,13 @@ display:inline-block;
     </div>
 </div>
 {% endfor %}
+<div id="my_dialog" class="my-dialog-close">
+    <div class="w-100 dialog-title-bar bg-dark">
+        <div class="title inline">
+            Untitled
+        </div>
+    </div>
+    <div class="dialog_viewport">
+    </div>
+</div>
 {% endblock %}

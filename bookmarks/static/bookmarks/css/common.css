@@ -1,0 +1,93 @@
+.drop-left-menu-ref {
+    position: relative;
+    display: inline-block;
+    }
+    .drop-left-menu-ref::after{
+    color:gray;
+    font-size:25px;
+    margin-left:20px;
+    content: "\2807";
+    cursor:pointer;
+    }
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    right:0;
+    top:100%;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    }
+    .dropdown-content a {
+    color: black;
+    font-size:15px;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    }
+    .dropdown-content a:hover {
+    background-color: #ddd;
+    cursor:pointer
+    }
+    .show {
+    display: block;
+    }
+.bookmark{
+position:relative;
+background-color:#8080802e;
+height:50px;
+margin:10px;
+padding:10px;
+}
+.bookmark .option{
+position:absolute;
+font-size:20px;
+right:10px;
+}
+.clickable{
+color:#808080bd;
+cursor:pointer;
+}
+.clickable:hover{
+color:#808080ff;
+}
+.inline{
+display:inline-block;
+}
+.my-dialog-close{
+display:none;
+}
+.my-dialog-open{
+position:fixed;
+top:20%;
+max-height: 70%;
+overflow:auto;
+left:30%;
+right:30%;
+width:40%;
+border-width:0px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+background-color:white;
+}
+.close-div{
+position:absolute;
+right:10px;
+vertical-align:middle;
+cursor:pointer;
+}
+.dialog-title-bar{
+padding:10px;
+height:45px;
+}
+.title{
+position:sticky;
+color:white;
+cursor: default;
+}
+.dialog_viewport{
+margin-top:5px;
+width:100%;
+padding:10px;
+}

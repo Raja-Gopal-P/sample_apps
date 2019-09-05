@@ -1,9 +1,10 @@
-from django.views.generic import DeleteView
-from django.shortcuts import render
+from django.views.generic import DeleteView, CreateView
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 from .models import BookMark
 from .filters import BookmarkNameFilter
+from .forms import BookmarkCreationForm
 
 
 def bookmarks_filter(request):
@@ -13,6 +14,21 @@ def bookmarks_filter(request):
     return render(request, 'bookmarks/bookmarks-list.html', {'bookmarks': filtered_bookmarks.qs,
                                                              'form': filtered_bookmarks.form,
                                                              })
+
+
+class BookmarkCreateView(CreateView):
+    model = BookMark
+    template_name = 'bookmarks/bookmarks-create-view.html'
+    form_class = BookmarkCreationForm
+    success_url = reverse_lazy('bookmarks:bookmarks-index-view')
+
+    def form_invalid(self, form):
+        return redirect(self.success_url)
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        form._save_m2m()
+        return response
 
 
 class BookmarkDeleteView(DeleteView):

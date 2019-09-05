@@ -9,7 +9,7 @@ from .test_models import EventTestMeta
 from ..views import create_event_view
 
 
-class PageCreationViewTest(EventTestMeta):
+class EventCreationViewTest(EventTestMeta):
 
     def setUp(self):
         super().setUp()
