@@ -17,24 +17,6 @@
     </script>
     <script src="{% static 'bookmarks/js/common.js' %}"></script>
     {% block js %}
-    <script>
-    function addBookmark() {
-    showDialog('my_dialog', 'Add Bookmark', 'Loading...');
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                showDialog('my_dialog', 'Add Bookmark', this.responseText);
-            }
-            else {
-                showDialog('my_dialog', 'Add Bookmark', 'Error Occured');
-            }
-        }
-    };
-    xhttp.open("GET", "{% url 'bookmarks:bookmarks-create-view' %}", true);
-    xhttp.send();
-    }
-    </script>
     {% endblock %}
 </head>
 <body>
@@ -54,7 +36,8 @@
                 <div id="myDropdown" class="dropdown-content">
                     {% block nav_bar_drop_down %}
                     <a href="{% url 'bookmarks:bookmarks-sorted-view' %}">Sort by name</a>
-                    <a onclick="addBookmark()">Add Bookmark</a>
+                    <a onclick="showURLInDialog('my_dialog', 'Add Bookmark','{% url 'bookmarks:bookmarks-create-view' %}');">
+                        Add Bookmark</a>
                     {% endblock %}
                     {% if user.is_superuser %}
                     <div class="dropdown-divider"></div>
@@ -67,6 +50,17 @@
     </nav>
 <div {% block divproperty %} class="container" {% endblock %}>
     {% block content %}
+    {% endblock %}
+    {% block dialog %}
+    <div id="my_dialog" class="my-dialog-close">
+        <div class="w-100 dialog-title-bar bg-dark">
+            <div class="title inline">
+                Untitled
+            </div>
+        </div>
+        <div class="dialog_viewport">
+        </div>
+    </div>
     {% endblock %}
 </div>
 </body>

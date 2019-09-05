@@ -52,3 +52,15 @@ class BookmarkUpdateView(UpdateView):
 
     def form_invalid(self, form):
         return redirect(self.success_url)
+
+
+class BookmarkAddTagView(UpdateView):
+    model = BookMark
+    fields = ['tags', ]
+    pk_url_kwarg = 'id'
+    context_object_name = 'bookmark'
+    template_name = 'bookmarks/bookmarks-add-tag-view.html'
+    success_url = reverse_lazy('bookmarks:bookmarks-index-view')
+
+    def form_invalid(self, form):
+        return redirect(self.success_url)

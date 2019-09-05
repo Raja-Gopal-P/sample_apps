@@ -61,7 +61,7 @@ display:none;
 }
 .my-dialog-open{
 position:fixed;
-top:20%;
+top:25%;
 max-height: 70%;
 overflow:auto;
 left:30%;
