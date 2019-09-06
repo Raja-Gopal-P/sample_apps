@@ -105,7 +105,7 @@ class BookAuthorModelTest(TestCase):
         self.genre = Genre.objects.create(type='type1')
         self.publisher = Publisher.objects.create(name='name', address='address', email='email1', phone='phone')
         self.author1 = Author.objects.create(name='name', address='address', email='email1', phone='phone1')
-        self.author2 = Author.objects.create(name='name', address='address', email='email2', phone='phone2')
+        self.author2 = Author.objects.create(name='name1', address='address', email='email2', phone='phone2')
 
         self.book = Book.objects.create(title='title', isbn='isbn1', pages=3, cover_image='img1', description='desc',
                                         published_date=date(year=2019, month=9, day=6), publisher=self.publisher,

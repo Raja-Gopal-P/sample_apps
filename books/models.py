@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 mobile_number_regex_validator = RegexValidator(regex=r'^\+\d{1,3}-\d{3,15}$',
-                                               message=_('Allowed format +(country code)-(number) Ex: +91-1234567890'),
+                                               message=_('Enter valid phone number'),
                                                code='invalid')
 
 isbn_regex_validator = RegexValidator(regex=r'^\d([\d-])*\d$',
@@ -13,10 +13,13 @@ isbn_regex_validator = RegexValidator(regex=r'^\d([\d-])*\d$',
 
 
 class Author(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     address = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone = models.CharField(validators=[mobile_number_regex_validator.__call__], max_length=18, unique=True)
+
+    class Meta:
+        ordering = ('name', )
 
     def __str__(self):
         return self.name
@@ -27,6 +30,9 @@ class Publisher(models.Model):
     address = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone = models.CharField(validators=[mobile_number_regex_validator.__call__], max_length=18, unique=True)
+
+    class Meta:
+        ordering = ('name', )
 
     def __str__(self):
         return self.name
@@ -55,6 +61,9 @@ class Book(models.Model):
 
     publisher = models.ForeignKey(to=Publisher, related_name='publisher', on_delete=models.CASCADE)
     genre = models.ForeignKey(to=Genre, null=True, related_name='genre', on_delete=models.SET_NULL)
+
+    class Meta:
+        ordering = ('title', )
 
     def __str__(self):
         return self.isbn
