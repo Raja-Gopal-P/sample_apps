@@ -3,8 +3,8 @@
 {% block title %} Create Genre {% endblock %}
 
 {% block breadcrumb %}
-  <li class="breadcrumb-item"><a href="#">Books</a></li>
-  <li class="breadcrumb-item"><a href="#">Genres</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'books:books-list' %}">Books</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'books:books-genre-list' %}">Genres</a></li>
   <li class="breadcrumb-item active">create</li>
 {% endblock %}
 
@@ -13,6 +13,6 @@
     {% csrf_token %}
     {% include 'books/includes/form.html' %}
     <input type="submit" class="btn btn-success" value="Add">
-    <a href="{% url 'books:books-list' %}" class="btn btn-outline-secondary">Cancel</a>
+    <a href="{% url 'books:books-genre-list' %}" class="btn btn-outline-secondary">Cancel</a>
 </form>
 {% endblock %}

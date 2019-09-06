@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from ..models import Genre
-from ..genre_views import GenreCreateView
+from ..genre_views import GenreCreateView, GenreListView
 
 
 class GenreCreateViewTest(TestCase):
@@ -19,7 +19,7 @@ class GenreCreateViewTest(TestCase):
         genre_type = '{type}_unique'.format(type=self.genre.type)
         response = self.client.post(self.url, data={'type': genre_type, })
 
-        self.assertRedirects(response, reverse('books:books-list'))
+        self.assertRedirects(response, reverse('books:books-genre-list'))
         self.assertTrue(Genre.objects.filter(type=genre_type))
 
     def test_failure_response(self):
@@ -33,3 +33,24 @@ class GenreCreateViewTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context.get('form').errors)
+
+
+class GenreListViewTest(TestCase):
+
+    def setUp(self):
+        self.url = reverse('books:books-genre-list')
+
+    def test_view_resolve(self):
+        view = resolve(self.url)
+        self.assertEqual(view.func.view_class, GenreListView)
+
+    def test_response(self):
+        genre1 = Genre.objects.create(type='type1')
+        genre2 = Genre.objects.create(type='type2')
+        genre3 = Genre.objects.create(type='type3')
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, genre1.type)
+        self.assertContains(response, genre2.type)
+        self.assertContains(response, genre3.type)

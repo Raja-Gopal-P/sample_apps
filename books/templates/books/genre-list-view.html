@@ -1,0 +1,32 @@
+{% extends 'books/base.html' %}
+
+{% block title %} Genre {% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'books:books-list' %}">Books</a></li>
+  <li class="breadcrumb-item active">Genres</li>
+{% endblock %}
+
+{% block content %}
+
+{% for genre in genres %}
+<div class="bookmark">
+    <div class="inline">
+        <span class="clickable"> {{ genre.type }} </span>
+    </div>
+    <div class="inline option">
+        <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('genre_{{ genre.id }}')">
+                <div id="genre_{{ genre.id }}" class="dropdown-content">
+                    <a href="#">
+                        Edit
+                    </a>
+                    <a href="#">
+                        Delete
+                    </a>
+                </div>
+            </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
