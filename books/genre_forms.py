@@ -10,3 +10,12 @@ class GenreCreateForm(ModelForm):
     class Meta:
         model = Genre
         fields = ['type', ]
+
+
+class GenreUpdateForm(ModelForm):
+
+    type = CharField(label='Genre Type', help_text='Unique field')
+
+    class Meta:
+        model = Genre
+        fields = ['type', ]

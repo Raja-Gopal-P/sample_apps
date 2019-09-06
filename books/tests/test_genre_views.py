@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from ..models import Genre
-from ..genre_views import GenreCreateView, GenreListView
+from ..genre_views import GenreCreateView, GenreListView, GenreUpdateView
 
 
 class GenreCreateViewTest(TestCase):
@@ -54,3 +54,33 @@ class GenreListViewTest(TestCase):
         self.assertContains(response, genre1.type)
         self.assertContains(response, genre2.type)
         self.assertContains(response, genre3.type)
+
+
+class GenreUpdateViewTest(TestCase):
+
+    def setUp(self):
+        self.genre1 = Genre.objects.create(type='type1')
+        self.url = reverse('books:books-update-genre', kwargs={'id': self.genre1.id, })
+
+    def test_view_resolve(self):
+        view = resolve(self.url)
+        self.assertEqual(view.func.view_class, GenreUpdateView)
+
+    def test_success_redirect(self):
+        genre_type = 'type'
+        response = self.client.post(self.url, data={'type': genre_type, })
+
+        self.assertRedirects(response, reverse('books:books-genre-list'))
+        self.assertTrue(Genre.objects.filter(type=genre_type))
+
+    def test_failure_response(self):
+        response = self.client.post(self.url, data={'type': '', })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context.get('form').errors)
+
+    def test_404(self):
+        url = reverse('books:books-update-genre', kwargs={'id': self.genre1.id + 1, })
+        response = self.client.post(url, data={'type': self.genre1.type, })
+
+        self.assertEqual(response.status_code, 404)

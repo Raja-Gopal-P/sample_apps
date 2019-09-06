@@ -7,6 +7,10 @@
   <li class="breadcrumb-item active">Genres</li>
 {% endblock %}
 
+{% block nav_bar_contents %}
+<a href="{% url 'books:books-create-genre' %}" class="btn btn-outline-secondary ml-2">Create Genre</a>
+{% endblock %}
+
 {% block content %}
 
 {% for genre in genres %}
@@ -17,7 +21,7 @@
     <div class="inline option">
         <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('genre_{{ genre.id }}')">
                 <div id="genre_{{ genre.id }}" class="dropdown-content">
-                    <a href="#">
+                    <a href="{% url 'books:books-update-genre' genre.id %}">
                         Edit
                     </a>
                     <a href="#">

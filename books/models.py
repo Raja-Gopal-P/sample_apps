@@ -35,6 +35,9 @@ class Publisher(models.Model):
 class Genre(models.Model):
     type = models.CharField(unique=True, max_length=50)
 
+    class Meta:
+        ordering = ('type', )
+
     def __str__(self):
         return self.type
 
