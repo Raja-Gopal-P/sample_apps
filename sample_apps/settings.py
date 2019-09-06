@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'places.apps.PlacesConfig',
     'events.apps.EventsConfig',
     'bookmarks.apps.BookmarksConfig',
+    'books.apps.BooksConfig',
     'taggit',
 ]
 
