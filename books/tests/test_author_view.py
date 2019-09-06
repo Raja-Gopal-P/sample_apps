@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from ..models import Author
-from ..author_views import AuthorCreateView, AuthorListView, AuthorUpdateView
+from ..author_views import AuthorCreateView, AuthorListView, AuthorUpdateView, AuthorDeleteView
 
 
 class AuthorCreateViewTest(TestCase):
@@ -121,5 +121,28 @@ class AuthorUpdateViewTest(TestCase):
                                                'email': 'email1@email.com',
                                                'phone': '+91-12345678',
                                                })
+
+        self.assertEqual(response.status_code, 404)
+
+
+class AuthorDeleteViewTest(TestCase):
+
+    def setUp(self):
+        self.author = Author.objects.create(name='name1', address='address', email='email1', phone='phone1')
+        self.url = reverse('books:books-delete-author', kwargs={'id': self.author.id, })
+
+    def test_view_resolve(self):
+        view = resolve(self.url)
+        self.assertEqual(view.func.view_class, AuthorDeleteView)
+
+    def test_success_redirect(self):
+        response = self.client.post(self.url)
+
+        self.assertRedirects(response, reverse('books:books-author-list'))
+        self.assertFalse(Author.objects.filter(id=self.author.id))
+
+    def test_404(self):
+        url = reverse('books:books-delete-author', kwargs={'id': self.author.id + 1, })
+        response = self.client.post(url)
 
         self.assertEqual(response.status_code, 404)

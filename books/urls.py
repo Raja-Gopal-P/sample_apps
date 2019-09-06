@@ -2,7 +2,7 @@ from django.urls import path
 
 from .book_views import books_list
 from .genre_views import GenreCreateView, GenreListView, GenreUpdateView, GenreDeleteView
-from .author_views import AuthorCreateView, AuthorListView, AuthorUpdateView
+from .author_views import AuthorCreateView, AuthorListView, AuthorUpdateView, AuthorDeleteView
 
 
 app_name = 'books'
@@ -16,4 +16,5 @@ urlpatterns = [
     path('author/', AuthorListView.as_view(), name='books-author-list'),
     path('author/create/', AuthorCreateView.as_view(), name='books-create-author'),
     path('author/<int:id>/edit/', AuthorUpdateView.as_view(), name='books-update-author'),
+    path('author/<int:id>/delete/', AuthorDeleteView.as_view(), name='books-delete-author'),
 ]

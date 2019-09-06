@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from .models import Author
@@ -26,4 +26,12 @@ class AuthorUpdateView(UpdateView):
     form_class = AuthorUpdateForm
 
     template_name = 'books/author-edit-view.html'
+    success_url = reverse_lazy('books:books-author-list')
+
+
+class AuthorDeleteView(DeleteView):
+    model = Author
+    pk_url_kwarg = 'id'
+
+    http_method_names = ['post', ]
     success_url = reverse_lazy('books:books-author-list')

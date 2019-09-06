@@ -24,10 +24,10 @@
                     <a href="{% url 'books:books-update-author' author.id %}">
                         Edit
                     </a>
-                    <form method="post" action="#"
-                          id="delete_author_form" style="margin-bottom:0px;">
+                    <form method="post" action="{% url 'books:books-delete-author' author.id %}"
+                          id="delete_author_form_{{ author.id }}" style="margin-bottom:0px;">
                         {% csrf_token %}
-                        <a> <!--onclick="document.forms['delete_author_form'].submit();"-->
+                        <a onclick="document.forms['delete_author_form_{{ author.id }}'].submit();">
                             Delete
                         </a>
                     </form>

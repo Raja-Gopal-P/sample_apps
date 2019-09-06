@@ -25,9 +25,9 @@
                         Edit
                     </a>
                     <form method="post" action="{% url 'books:books-delete-genre' genre.id %}"
-                          id="delete_genre_form" style="margin-bottom:0px;">
+                          id="delete_genre_form_{{ genre.id }}" style="margin-bottom:0px;">
                         {% csrf_token %}
-                        <a onclick="document.forms['delete_genre_form'].submit();">
+                        <a onclick="document.forms['delete_genre_form_{{ genre.id }}'].submit();">
                             Delete
                         </a>
                     </form>
