@@ -23,4 +23,5 @@ urlpatterns = [
     path('places/', include('places.urls')),
     path('events/', include('events.urls')),
     path('bookmarks/', include('bookmarks.urls')),
+    path('books/', include('books.urls')),
 ]
