@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from ..models import Genre
-from ..genre_views import GenreCreateView, GenreListView, GenreUpdateView
+from ..genre_views import GenreCreateView, GenreListView, GenreUpdateView, GenreDeleteView
 
 
 class GenreCreateViewTest(TestCase):
@@ -82,5 +82,28 @@ class GenreUpdateViewTest(TestCase):
     def test_404(self):
         url = reverse('books:books-update-genre', kwargs={'id': self.genre1.id + 1, })
         response = self.client.post(url, data={'type': self.genre1.type, })
+
+        self.assertEqual(response.status_code, 404)
+
+
+class GenreDeleteViewTest(TestCase):
+
+    def setUp(self):
+        self.genre1 = Genre.objects.create(type='type1')
+        self.url = reverse('books:books-delete-genre', kwargs={'id': self.genre1.id, })
+
+    def test_view_resolve(self):
+        view = resolve(self.url)
+        self.assertEqual(view.func.view_class, GenreDeleteView)
+
+    def test_success_redirect(self):
+        response = self.client.post(self.url)
+
+        self.assertRedirects(response, reverse('books:books-genre-list'))
+        self.assertFalse(Genre.objects.filter(id=self.genre1.id))
+
+    def test_404(self):
+        url = reverse('books:books-delete-genre', kwargs={'id': self.genre1.id + 1, })
+        response = self.client.post(url)
 
         self.assertEqual(response.status_code, 404)

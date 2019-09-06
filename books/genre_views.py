@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from .models import Genre
@@ -26,4 +26,12 @@ class GenreUpdateView(UpdateView):
     form_class = GenreUpdateForm
 
     template_name = 'books/genre-edit-view.html'
+    success_url = reverse_lazy('books:books-genre-list')
+
+
+class GenreDeleteView(DeleteView):
+    model = Genre
+    pk_url_kwarg = 'id'
+
+    http_method_names = ['post', ]
     success_url = reverse_lazy('books:books-genre-list')
