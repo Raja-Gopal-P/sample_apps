@@ -21,7 +21,7 @@
     <div class="inline option">
         <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('author_{{ author.id }}')">
                 <div id="author_{{ author.id }}" class="dropdown-content">
-                    <a href="#">
+                    <a href="{% url 'books:books-update-author' author.id %}">
                         Edit
                     </a>
                     <form method="post" action="#"

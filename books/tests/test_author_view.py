@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from ..models import Author
-from ..author_views import AuthorCreateView, AuthorListView
+from ..author_views import AuthorCreateView, AuthorListView, AuthorUpdateView
 
 
 class AuthorCreateViewTest(TestCase):
@@ -62,7 +62,7 @@ class AuthorCreateViewTest(TestCase):
         self.assertTrue(response.context.get('form').errors)
 
 
-class GenreListViewTest(TestCase):
+class AuthorListViewTest(TestCase):
 
     def setUp(self):
         self.url = reverse('books:books-author-list')
@@ -81,3 +81,45 @@ class GenreListViewTest(TestCase):
         self.assertContains(response, author1.name)
         self.assertContains(response, author2.name)
         self.assertContains(response, author3.name)
+
+
+class AuthorUpdateViewTest(TestCase):
+
+    def setUp(self):
+        self.author = Author.objects.create(name='name1', address='address', email='email1', phone='phone1')
+        self.url = reverse('books:books-update-author', kwargs={'id': self.author.id, })
+
+    def test_view_resolve(self):
+        view = resolve(self.url)
+        self.assertEqual(view.func.view_class, AuthorUpdateView)
+
+    def test_success_redirect(self):
+        name = 'name2'
+        response = self.client.post(self.url, data={'name': name,
+                                                    'address': 'address',
+                                                    'email': 'email1@email.com',
+                                                    'phone': '+91-12345678',
+                                                    })
+
+        self.assertRedirects(response, reverse('books:books-author-list'))
+        self.assertTrue(Author.objects.filter(name=name))
+
+    def test_failure_response(self):
+        response = self.client.post(self.url, data={'name': '',
+                                                    'address': '',
+                                                    'email': '',
+                                                    'phone': '',
+                                                    })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context.get('form').errors)
+
+    def test_404(self):
+        url = reverse('books:books-update-genre', kwargs={'id': self.author.id + 1, })
+        response = self.client.post(url, data={'name': 'name',
+                                               'address': 'address',
+                                               'email': 'email1@email.com',
+                                               'phone': '+91-12345678',
+                                               })
+
+        self.assertEqual(response.status_code, 404)
