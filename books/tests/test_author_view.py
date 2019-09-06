@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from ..models import Author
-from ..author_views import AuthorCreateView
+from ..author_views import AuthorCreateView, AuthorListView
 
 
 class AuthorCreateViewTest(TestCase):
@@ -24,7 +24,7 @@ class AuthorCreateViewTest(TestCase):
                                                     'phone': '+91-12345678',
                                                     })
 
-        self.assertRedirects(response, reverse('books:books-genre-list'))
+        self.assertRedirects(response, reverse('books:books-author-list'))
         self.assertTrue(Author.objects.filter(name=name))
 
     def test_failure_response(self):
@@ -60,3 +60,24 @@ class AuthorCreateViewTest(TestCase):
                                                     })
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context.get('form').errors)
+
+
+class GenreListViewTest(TestCase):
+
+    def setUp(self):
+        self.url = reverse('books:books-author-list')
+
+    def test_view_resolve(self):
+        view = resolve(self.url)
+        self.assertEqual(view.func.view_class, AuthorListView)
+
+    def test_response(self):
+        author1 = Author.objects.create(name='name1', address='address', email='email1', phone='phone1')
+        author2 = Author.objects.create(name='name2', address='address', email='email2', phone='phone2')
+        author3 = Author.objects.create(name='name3', address='address', email='email3', phone='phone3')
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, author1.name)
+        self.assertContains(response, author2.name)
+        self.assertContains(response, author3.name)

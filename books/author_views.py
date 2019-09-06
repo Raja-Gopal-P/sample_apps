@@ -1,4 +1,4 @@
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 
 from .models import Author
@@ -10,4 +10,10 @@ class AuthorCreateView(CreateView):
     form_class = AuthorCreateForm
 
     template_name = 'books/author-create-view.html'
-    success_url = reverse_lazy('books:books-genre-list')
+    success_url = reverse_lazy('books:books-author-list')
+
+
+class AuthorListView(ListView):
+    model = Author
+    context_object_name = 'authors'
+    template_name = 'books/author-list-view.html'
