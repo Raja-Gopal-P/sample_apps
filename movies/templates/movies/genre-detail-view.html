@@ -1,0 +1,18 @@
+{% extends 'movies/base.html' %}
+
+{% block title %} Genre {% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="#' %}">Movies</a></li>
+<li class="breadcrumb-item active"><a href="{% url 'movies:genre-list' %}">Genres</a></li>
+<li class="breadcrumb-item active">{{ genre.slug }}</li>
+{% endblock %}
+
+{% block content %}
+<div>
+    Type: {{ genre.title }}
+</div>
+<div>
+    Slug: {{ genre.slug }}
+</div>
+{% endblock %}
