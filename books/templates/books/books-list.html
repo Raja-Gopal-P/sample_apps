@@ -53,7 +53,7 @@ color:#808080bd;
                     <a href="{% url 'books:books-edit-book' book.id %}">
                         Edit
                     </a>
-                    <form method="post" action="#"
+                    <form method="post" action="{% url 'books:books-delete-book' book.id %}"
                           id="delete_author_form_{{ book.id }}" style="margin-bottom:0px;">
                         {% csrf_token %}
                         <a onclick="document.forms['delete_author_form_{{ book.id }}'].submit();">
