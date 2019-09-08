@@ -52,7 +52,7 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     isbn = models.CharField(validators=[isbn_regex_validator.__call__], max_length=15, unique=True)
     pages = models.PositiveSmallIntegerField()
-    cover_image = models.ImageField(unique=True)
+    cover_image = models.ImageField(unique=True, upload_to='books')
     description = models.TextField()
     published_date = models.DateField()
 
