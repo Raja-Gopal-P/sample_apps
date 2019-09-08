@@ -50,7 +50,7 @@ color:#808080bd;
     <div class="inline option">
         <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('author_{{ book.id }}')">
                 <div id="author_{{ book.id }}" class="dropdown-content">
-                    <a href="#">
+                    <a href="{% url 'books:books-edit-book' book.id %}">
                         Edit
                     </a>
                     <form method="post" action="#"

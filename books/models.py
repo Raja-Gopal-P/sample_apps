@@ -63,7 +63,7 @@ class Book(models.Model):
     genre = models.ForeignKey(to=Genre, null=True, related_name='genre', on_delete=models.SET_NULL)
 
     class Meta:
-        ordering = ('title', )
+        ordering = ('title', 'isbn')
 
     def __str__(self):
         return self.isbn
