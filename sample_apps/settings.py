@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'places.apps.PlacesConfig',
     'events.apps.EventsConfig',
+    'bookmarks.apps.BookmarksConfig',
+    'books.apps.BooksConfig',
     'taggit',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -130,5 +134,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = '/Users/rajagopal/Downloads/django-media'
+
+MEDIA_URL = '/media/'
 
 LOGOUT_REDIRECT_URL = 'pages:pages-list'

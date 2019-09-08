@@ -1,0 +1,69 @@
+{% extends 'books/base.html' %}
+
+{% block title %} Books {% endblock %}
+
+{% block css %}
+<style>
+.color-text-gray{
+color:#808080bd;
+}
+</style>
+{% endblock %}
+
+{% block nav_bar_contents %}
+<a href="{% url 'books:books-create-book' %}" class="btn btn-outline-secondary ml-2">Create Book</a>
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Books</li>
+{% endblock %}
+
+{% block content %}
+
+{% for book in books %}
+<div class="bookmark">
+      <div class="inline" style="min-height:100px;">
+        <img src="{{ book.cover_image.url }}" alt="Cover Image" width="100px" height="100px">
+        <div class="inline" style="vertical-align:top;margin-left:10px;">
+          <h5 class="clickable" style="display:block;"> {{ book.title }} </h5>
+          <div>
+            ISBN:
+            <span class="clickable">{{book.isbn}} </span>
+          </div>
+          <div>
+            Authors:
+            <span>
+              {% for author in book.authors.all %}
+              <span class="clickable">
+                {{ author.name }}
+              </span>
+              ,
+              {% endfor %}
+            </span>
+          </div>
+          <div>
+            Publisher:
+            <span class="clickable"> {{ book.publisher.name }} </span>
+          </div>
+        </div>
+    </div>
+    <div class="inline option">
+        <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('author_{{ book.id }}')">
+                <div id="author_{{ book.id }}" class="dropdown-content">
+                    <a href="{% url 'books:books-edit-book' book.id %}">
+                        Edit
+                    </a>
+                    <form method="post" action="{% url 'books:books-delete-book' book.id %}"
+                          id="delete_author_form_{{ book.id }}" style="margin-bottom:0px;">
+                        {% csrf_token %}
+                        <a onclick="document.forms['delete_author_form_{{ book.id }}'].submit();">
+                            Delete
+                        </a>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

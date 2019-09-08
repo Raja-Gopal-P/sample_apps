@@ -1,0 +1,40 @@
+{% extends 'books/base.html' %}
+
+{% block title %} Genre {% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'books:books-list' %}">Books</a></li>
+  <li class="breadcrumb-item active">Genres</li>
+{% endblock %}
+
+{% block nav_bar_contents %}
+<a href="{% url 'books:books-create-genre' %}" class="btn btn-outline-secondary ml-2">Create Genre</a>
+{% endblock %}
+
+{% block content %}
+
+{% for genre in genres %}
+<div class="bookmark">
+    <div class="inline">
+        <span class="clickable"> {{ genre.type }} </span>
+    </div>
+    <div class="inline option">
+        <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('genre_{{ genre.id }}')">
+                <div id="genre_{{ genre.id }}" class="dropdown-content">
+                    <a href="{% url 'books:books-update-genre' genre.id %}">
+                        Edit
+                    </a>
+                    <form method="post" action="{% url 'books:books-delete-genre' genre.id %}"
+                          id="delete_genre_form_{{ genre.id }}" style="margin-bottom:0px;">
+                        {% csrf_token %}
+                        <a onclick="document.forms['delete_genre_form_{{ genre.id }}'].submit();">
+                            Delete
+                        </a>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

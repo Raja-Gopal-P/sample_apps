@@ -1,0 +1,67 @@
+{% load static %}
+<html>
+<head>
+    <title> Bookmarks </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'bookmarks/css/common.css' %}">
+    {% block css %}
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script src="{% static 'bookmarks/js/common.js' %}"></script>
+    {% block js %}
+    {% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'bookmarks:bookmarks-index-view' %}">Bookmarks</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainMenu">
+        <div class="form-inline ml-auto" id="filter_form">
+            {% block nav_bar_contents %}
+            <input onchange="location='?filter_by='+this.value;" placeholder="Search"
+                   style="width:300px;"/>
+            {% endblock %}
+            <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('myDropdown')">
+                <div id="myDropdown" class="dropdown-content">
+                    {% block nav_bar_drop_down %}
+                    <a href="{% url 'bookmarks:bookmarks-sorted-view' %}">Sort by name</a>
+                    <a onclick="showURLInDialog('my_dialog', 'Add Bookmark','{% url 'bookmarks:bookmarks-create-view' %}');">
+                        Add Bookmark</a>
+                    {% endblock %}
+                    {% if user.is_superuser %}
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'custom-admin:logout' %}">Log out</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </nav>
+<div {% block divproperty %} class="container" {% endblock %}>
+    {% block content %}
+    {% endblock %}
+    {% block dialog %}
+    <div id="my_dialog" class="my-dialog-close">
+        <div class="w-100 dialog-title-bar bg-dark">
+            <div class="title inline">
+                Untitled
+            </div>
+        </div>
+        <div class="dialog_viewport">
+        </div>
+    </div>
+    {% endblock %}
+</div>
+</body>
+</html>
