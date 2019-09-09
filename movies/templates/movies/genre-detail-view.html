@@ -15,4 +15,12 @@
 <div>
     Slug: {{ genre.slug }}
 </div>
+{% if genre.movies.exists %}
+<div>
+    Movies:
+    {% for movie in genre.movies.all %}
+    <a href="#"> {{ movie.title }} </a> ,
+    {% endfor %}
+</div>
+{% endif %}
 {% endblock %}

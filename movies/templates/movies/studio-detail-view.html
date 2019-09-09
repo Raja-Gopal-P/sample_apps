@@ -1,0 +1,28 @@
+{% extends 'movies/base.html' %}
+
+{% block title %} Studio {% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="#' %}">Movies</a></li>
+<li class="breadcrumb-item"><a href="{% url 'movies:studio-list' %}">Studios</a></li>
+<li class="breadcrumb-item active">{{ studio.slug }}</li>
+{% endblock %}
+
+{% block content %}
+<h4> {{ studio.title }} </h4>
+<div class="dropdown-divider"></div>
+<div>
+    prefix: {{ studio.prefix }}
+</div>
+{% if studio.movies.exists %}
+<div>
+    Movies:
+    {% for movie in studio.movies.all %}
+    <a href="#"> {{ movie.title }} </a> ,
+    {% endfor %}
+</div>
+{% endif %}
+<div>
+    website: <a href="{{ studio.website }}"> {{ studio.website }} </a>
+</div>
+{% endblock %}
