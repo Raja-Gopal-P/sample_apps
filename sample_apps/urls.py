@@ -26,4 +26,5 @@ urlpatterns = [
     path('bookmarks/', include('bookmarks.urls')),
     path('books/', include('books.urls')),
     path('movies/', include('movies.urls')),
+    path('musics/', include('musics.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

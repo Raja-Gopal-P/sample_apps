@@ -1,0 +1,23 @@
+{% extends 'musics/base.html' %}
+
+{% block title %} Genres {% endblock %}
+
+{% block genres-a-class %} bg-dark-url-active {% endblock %}
+
+{% block genres-href %} # {% endblock %}
+
+{% block content %}
+<h4> Genres </h4>
+<div class="dropdown-divider"></div>
+<table class="table table-striped mb-4">
+    <tbody>
+    {% for genre in genres %}
+    <tr>
+        <td>
+            <a href="{% url 'musics:music-genre-detail' genre.slug %}" class="clickable">{{ genre.title }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

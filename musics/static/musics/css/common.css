@@ -1,0 +1,31 @@
+.content-style{
+    padding:20px;
+    height:100%;
+    overflow:auto;
+}
+.bg-dark-url{
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.bg-dark-url-active{
+padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  transition: 0.3s;
+  color: #f1f1f1;
+}
+
+.bg-dark-url:active{
+color: #f1f1f1;
+}
+
+.bg-dark-url:hover, .bg-dark-url-active:hover{
+  color: #f1f1f1;
+  text-decoration: none;
+}

@@ -1,0 +1,38 @@
+{% for album in albums %}
+<div class="inline" style="min-height:100px;">
+    <img src="{{ album.cover.url }}" alt="Cover Image" width="120px" height="120px">
+    <div class="inline" style="vertical-align:top;margin-left:10px;">
+        <h5 class="clickable" style="display:block;">
+            <a href="{% url 'musics:music-album-detail' album.slug %}">{{ album.title }} </a>
+        </h5>
+        <div>
+            ASIN:
+            <span class="clickable">{{album.asin}} </span>
+        </div>
+        <div>
+            Band:
+            <a href="#" class="clickable">{{album.band.name}} </a>
+        </div>
+        <div>
+            Label:
+            <a href="#" class="clickable">{{album.label.name}} </a>
+        </div>
+        <div>
+            Genres:
+            <span>
+              {% for genre in album.genre.all %}
+              <a href="{% url 'musics:music-genre-detail' genre.slug %}" class="clickable">
+                {{ genre.title }}
+              </a>
+              ,
+              {% endfor %}
+            </span>
+        </div>
+        <div>
+            Release Date:
+            <span class="clickable"> {{ album.release_date }} </span>
+        </div>
+    </div>
+</div>
+<div class="dropdown-divider"></div>
+{% endfor %}

@@ -1,0 +1,17 @@
+{% extends 'musics/base.html' %}
+
+{% block title %} Musics {% endblock %}
+
+{% block content %}
+<h4> <a href="{% url 'musics:music-album-list' %}"> Albums </a>/ {{ album.title }} </h4>
+<div class="dropdown-divider"></div>
+{% for music in album.musics.all %}
+<div>
+    <a class="clickable" href="{% url 'musics:music-music-detail' music.slug %}"> {{ music.title }} </a> <br>
+    {% if music.band %}
+    Band: <a class="clickable" href="#"> {{ music.band.name }} </a>
+    {% endif %}
+    <div class="dropdown-divider"></div>
+</div>
+{% endfor %}
+{% endblock %}

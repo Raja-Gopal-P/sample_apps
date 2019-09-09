@@ -24,16 +24,8 @@ class Label(models.Model):
     name = models.CharField(unique=True, max_length=50)
 
 
-class BandMember(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    instrument = models.CharField(max_length=50)
-    address = models.CharField(max_length=200)
-    phone_number = models.CharField(unique=True, max_length=18, validators=[mobile_number_regex_validator, ])
-
-
 class Band(models.Model):
     name = models.CharField(unique=True, max_length=50)
-    members = models.ManyToManyField(BandMember, related_name='bands')
 
 
 class Album(models.Model):

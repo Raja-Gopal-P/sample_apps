@@ -4,7 +4,7 @@ from django.db.utils import IntegrityError
 
 from datetime import date
 
-from ..models import Genre, Label, BandMember, Band, Album, Music
+from ..models import Genre, Label, Band, Album, Music
 
 
 class GenreModelTest(TestCase):
@@ -35,34 +35,10 @@ class LabelModelTest(TestCase):
             Label.objects.create(name='title')
 
 
-class BandMembersModelTest(TestCase):
-
-    def test_fields(self):
-        self.assertEqual(BandMember._meta.get_field('name').get_internal_type(), models.CharField.__name__)
-        self.assertEqual(BandMember._meta.get_field('instrument').get_internal_type(), models.CharField.__name__)
-        self.assertEqual(BandMember._meta.get_field('address').get_internal_type(), models.CharField.__name__)
-        self.assertEqual(BandMember._meta.get_field('phone_number').get_internal_type(), models.CharField.__name__)
-
-    def test_unique_name_field(self):
-        with self.assertRaises(IntegrityError):
-            BandMember.objects.create(name='name', instrument='Guitar', address='address1',
-                                      phone_number='+91-1234567890')
-            BandMember.objects.create(name='name', instrument='Guitar', address='address1',
-                                      phone_number='+91-1234567891')
-
-    def test_unique_phone_number_field(self):
-        with self.assertRaises(IntegrityError):
-            BandMember.objects.create(name='name1', instrument='Guitar', address='address1',
-                                      phone_number='+91-1234567890')
-            BandMember.objects.create(name='name2', instrument='Guitar', address='address1',
-                                      phone_number='+91-1234567890')
-
-
 class BandModelTest(TestCase):
 
     def test_fields(self):
         self.assertEqual(Band._meta.get_field('name').get_internal_type(), models.CharField.__name__)
-        self.assertEqual(Band._meta.get_field('members').get_internal_type(), models.ManyToManyField.__name__)
 
     def test_unique_name_field(self):
         with self.assertRaises(IntegrityError):
