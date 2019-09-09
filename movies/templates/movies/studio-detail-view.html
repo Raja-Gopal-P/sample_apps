@@ -3,7 +3,7 @@
 {% block title %} Studio {% endblock %}
 
 {% block breadcrumb %}
-<li class="breadcrumb-item"><a href="#' %}">Movies</a></li>
+<li class="breadcrumb-item"><a href="{% url 'movies:movie-list' %}">Movies</a></li>
 <li class="breadcrumb-item"><a href="{% url 'movies:studio-list' %}">Studios</a></li>
 <li class="breadcrumb-item active">{{ studio.slug }}</li>
 {% endblock %}
@@ -18,7 +18,7 @@
 <div>
     Movies:
     {% for movie in studio.movies.all %}
-    <a href="#"> {{ movie.title }} </a> ,
+    <a href="{% url 'movies:movie-detail-view' movie.slug %}"> {{ movie.title }} </a> ,
     {% endfor %}
 </div>
 {% endif %}

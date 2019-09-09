@@ -3,7 +3,7 @@
 {% block title %} Director {% endblock %}
 
 {% block breadcrumb %}
-<li class="breadcrumb-item"><a href="#' %}">Movies</a></li>
+<li class="breadcrumb-item"><a href="{% url 'movies:movie-list' %}">Movies</a></li>
 <li class="breadcrumb-item"><a href="{% url 'movies:director-list' %}">Directors</a></li>
 <li class="breadcrumb-item active">{{ director.id }}</li>
 {% endblock %}
@@ -26,7 +26,7 @@
 <div>
     Movies:
     {% for movie in director.movies.all %}
-    <a href="#"> {{ movie.title }} </a> ,
+    <a href="{% url 'movies:movie-detail-view' movie.slug %}"> {{ movie.title }} </a> ,
     {% endfor %}
 </div>
 {% endif %}
