@@ -1,0 +1,51 @@
+{% extends 'movies/base.html' %}
+
+{% block title %} Movie {% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'movies:movie-list' %}">Movies</a></li>
+<li class="breadcrumb-item active">{{ movie.slug }}</li>
+{% endblock %}
+
+{% block content %}
+<h4> {{ movie.title }} </h4>
+<div class="clickable"> {{ movie.sub_title }} </div>
+
+<div class="dropdown-divider"></div>
+
+<center>
+    <img src="{{ movie.cover_image.url }}" width="250px" height="250px">
+</center>
+<div>
+    review: {{ movie.review }}
+</div>
+<div>
+    prefix: {{ movie.prefix }}
+</div>
+{% if movie.genres.exists %}
+<div>
+    genres:
+    {% for genre in movie.genres.all %}
+    <a href="{% url 'movies:genre-detail-view' genre.slug %}"> {{ genre.title }} </a> ,
+    {% endfor %}
+</div>
+{% endif %}
+<div>
+    Release date: {{ movie.released_date }}
+</div>
+{% if movie.directors.exists %}
+<div>
+    Directors:
+    {% for director in movie.directors.all %}
+    <a href="{% url 'movies:director-detail-view' director.id %}"> {{ director.first_name }} {{ director.middle_name }} {{ director.last_name }} </a> ,
+    {% endfor %}
+</div>
+{% endif %}
+<div>
+    Studio:
+    <a href="{% url 'movies:studio-detail-view' movie.studio.slug %}"> {{ movie.studio.title }} </a>
+</div>
+<div>
+    ASIN: <a href="{{ movie.amazon_url }}"> {{ movie.asin }} </a>
+</div>
+{% endblock %}

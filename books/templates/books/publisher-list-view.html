@@ -1,0 +1,40 @@
+{% extends 'books/base.html' %}
+
+{% block title %} Publisher {% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'books:books-list' %}">Books</a></li>
+  <li class="breadcrumb-item active">Publishers</li>
+{% endblock %}
+
+{% block nav_bar_contents %}
+<a href="{% url 'books:books-create-publisher' %}" class="btn btn-outline-secondary ml-2">Create Publisher</a>
+{% endblock %}
+
+{% block content %}
+
+{% for publisher in publishers %}
+<div class="bookmark">
+    <div class="inline">
+        <span class="clickable"> {{ publisher.name }} </span>
+    </div>
+    <div class="inline option">
+        <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('publisher_{{ publisher.id }}')">
+                <div id="publisher_{{ publisher.id }}" class="dropdown-content">
+                    <a href="{% url 'books:books-update-publisher' publisher.id %}">
+                        Edit
+                    </a>
+                    <form method="post" action="{% url 'books:books-delete-publisher' publisher.id %}"
+                          id="delete_publisher_form_{{ publisher.id }}" style="margin-bottom:0px;">
+                        {% csrf_token %}
+                        <a onclick="document.forms['delete_publisher_form_{{ publisher.id }}'].submit();">
+                            Delete
+                        </a>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

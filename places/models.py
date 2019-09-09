@@ -36,3 +36,6 @@ class Place(TimeStampedModel):
     city = models.ForeignKey(to=City, on_delete=models.CASCADE, related_name='places')
     types = models.CharField(validators=[types_regex_validator.__call__], max_length=100)
     tags = models.CharField(validators=[tags_validator], max_length=100, default=None, null=True)
+
+    def __str__(self):
+        return self.title

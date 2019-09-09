@@ -1,0 +1,22 @@
+{% extends 'movies/base.html' %}
+
+{% block title %} Directors {% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'movies:movie-list' %}">Movies</a></li>
+<li class="breadcrumb-item active">Directors</li>
+{% endblock %}
+
+{% block content %}
+<table class="table table-striped mb-4">
+    <tbody>
+    {% for director in directors %}
+    <tr>
+        <td>
+            <a href="{% url 'movies:director-detail-view' director.id %}">{{ director.first_name }} {{ director.middle_name }} {{ director.last_name }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
