@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'bookmarks.apps.BookmarksConfig',
     'books.apps.BooksConfig',
     'movies.apps.MoviesConfig',
+    'musics.apps.MusicsConfig',
     'taggit',
     'django_cleanup.apps.CleanupConfig',
 ]
