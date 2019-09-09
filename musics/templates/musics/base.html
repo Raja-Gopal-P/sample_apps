@@ -43,7 +43,7 @@
                 Albums
             </a>
             <a class="{% block bands-a-class %} bg-dark-url {% endblock %}"
-               href="{% block bands-href %} # {% endblock %}">
+               href="{% block bands-href %} {% url 'musics:music-band-list' %} {% endblock %}">
                 Bands
             </a>
             <a class="{% block genres-a-class %} bg-dark-url {% endblock %}"

@@ -1,0 +1,23 @@
+{% extends 'musics/base.html' %}
+
+{% block title %} Bands {% endblock %}
+
+{% block bands-a-class %} bg-dark-url-active {% endblock %}
+
+{% block bands-href %} # {% endblock %}
+
+{% block content %}
+<h4> Bands </h4>
+<div class="dropdown-divider"></div>
+<table class="table table-striped mb-4">
+    <tbody>
+    {% for band in bands %}
+    <tr>
+        <td>
+            <a href="{% url 'musics:music-band-detail' band.id %}" class="clickable">{{ band.name }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

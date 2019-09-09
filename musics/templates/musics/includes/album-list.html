@@ -9,14 +9,22 @@
             ASIN:
             <span class="clickable">{{album.asin}} </span>
         </div>
+
+        {% if album.band %}
         <div>
             Band:
             <a href="#" class="clickable">{{album.band.name}} </a>
         </div>
+        {% endif %}
+
+        {% if album.label %}
         <div>
             Label:
             <a href="#" class="clickable">{{album.label.name}} </a>
         </div>
+        {% endif %}
+
+        {% if album.genre.exists %}
         <div>
             Genres:
             <span>
@@ -28,6 +36,8 @@
               {% endfor %}
             </span>
         </div>
+        {% endif %}
+
         <div>
             Release Date:
             <span class="clickable"> {{ album.release_date }} </span>
