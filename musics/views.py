@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponse
 
-from .models import Genre, Album, Band
+from .models import Genre, Album, Band, Label
 
 
 def dummy_response(request, slug):
@@ -54,4 +54,22 @@ class BandDetailView(DetailView):
     def get_context_data(self, **kwargs):
         kwargs = super().get_context_data(**kwargs)
         kwargs['albums'] = kwargs['band'].albums.all()
+        return kwargs
+
+
+class LabelListView(ListView):
+    model = Label
+    context_object_name = 'labels'
+    template_name = 'musics/labels-list-view.html'
+
+
+class LabelDetailView(DetailView):
+    model = Label
+    pk_url_kwarg = 'id'
+    context_object_name = 'label'
+    template_name = 'musics/label-detail-view.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs = super().get_context_data(**kwargs)
+        kwargs['albums'] = kwargs['label'].albums.all()
         return kwargs

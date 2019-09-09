@@ -38,6 +38,11 @@
 <table class="w-100 h-100">
     <tr class="align-top">
         <td class="bg-dark" style="width:15%;overflow:auto;">
+            <a class="{% block all-a-class %} bg-dark-url {% endblock %}"
+            href="{% block all-href %} # {% endblock %}">
+                All Musics
+            </a>
+            <div class="dropdown-divider"></div>
             <a class="{% block albums-a-class %} bg-dark-url {% endblock %}"
                href="{% block albums-href %} {% url 'musics:music-album-list' %} {% endblock %}">
                 Albums
@@ -51,7 +56,7 @@
                 Genres
             </a>
             <a class="{% block labels-a-class %} bg-dark-url {% endblock %}"
-               href="{% block labels-href %} # {% endblock %}">
+               href="{% block labels-href %} {% url 'musics:music-label-list' %} {% endblock %}">
                 Labels
             </a>
         </td>

@@ -16,6 +16,9 @@ class Genre(models.Model):
     title = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=60, unique=True)
 
+    class Meta:
+        ordering = ('title', )
+
     def __str__(self):
         return self.title
 
@@ -23,9 +26,15 @@ class Genre(models.Model):
 class Label(models.Model):
     name = models.CharField(unique=True, max_length=50)
 
+    class Meta:
+        ordering = ('name', )
+
 
 class Band(models.Model):
     name = models.CharField(unique=True, max_length=50)
+
+    class Meta:
+        ordering = ('name', )
 
 
 class Album(models.Model):
@@ -42,6 +51,9 @@ class Album(models.Model):
     band = models.ForeignKey(null=True, to=Band, related_name='albums', on_delete=models.SET_NULL)
     label = models.ForeignKey(null=True, to=Label, related_name='albums', on_delete=models.SET_NULL)
 
+    class Meta:
+        ordering = ('title', )
+
     def __str__(self):
         return self.title
 
@@ -52,3 +64,6 @@ class Music(models.Model):
 
     album = models.ForeignKey(null=True, to=Album, related_name='musics', on_delete=models.SET_NULL)
     band = models.ForeignKey(null=True, to=Band, related_name='musics', on_delete=models.SET_NULL)
+
+    class Meta:
+        ordering = ('title', )

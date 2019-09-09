@@ -1,0 +1,23 @@
+{% extends 'musics/base.html' %}
+
+{% block title %} Labels {% endblock %}
+
+{% block labels-a-class %} bg-dark-url-active {% endblock %}
+
+{% block labels-href %} # {% endblock %}
+
+{% block content %}
+<h4> Labels </h4>
+<div class="dropdown-divider"></div>
+<table class="table table-striped mb-4">
+    <tbody>
+    {% for label in labels %}
+    <tr>
+        <td>
+            <a href="{% url 'musics:music-label-detail' label.id %}" class="clickable">{{ label.name }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

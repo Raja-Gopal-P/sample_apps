@@ -13,7 +13,7 @@
         {% if album.band %}
         <div>
             Band:
-            <a href="#" class="clickable">{{album.band.name}} </a>
+            <a href="{% url 'musics:music-band-detail' album.band.id %}" class="clickable">{{album.band.name}} </a>
         </div>
         {% endif %}
 
