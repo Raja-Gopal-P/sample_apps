@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import GenreListView, GenreDetailView, AlbumListView, AlbumDetailView, BandListView, BandDetailView, \
-    LabelListView, LabelDetailView, dummy_response
+    LabelListView, LabelDetailView, MusicListView, MusicDetailView
 
 
 app_name = 'musics'
@@ -15,5 +15,6 @@ urlpatterns = [
     path('label/<int:id>', LabelDetailView.as_view(), name='music-label-detail'),
     path('album/', AlbumListView.as_view(), name='music-album-list'),
     path('album/<slug:slug>/', AlbumDetailView.as_view(), name='music-album-detail'),
-    path('<slug:slug>/', dummy_response, name='music-music-detail'),
+    path('', MusicListView.as_view(), name='music-music-list'),
+    path('<slug:slug>/', MusicDetailView.as_view(), name='music-music-detail'),
 ]

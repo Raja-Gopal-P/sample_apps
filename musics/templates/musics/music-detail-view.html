@@ -1,0 +1,13 @@
+{% extends 'musics/base.html' %}
+
+{% block title %} Play Music {% endblock %}
+
+{% block body %}
+<center style="margin-top:20px;">
+    <h4> {{ music.title }} </h4>
+</center>
+<center style="margin-top:20px;">
+    <img src="{{ music.album.cover.url }}" width="80%" height="80%" alt="Cover Image">
+</center>
+
+{% endblock %}

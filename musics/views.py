@@ -1,11 +1,6 @@
 from django.views.generic import ListView, DetailView
-from django.http import HttpResponse
 
-from .models import Genre, Album, Band, Label
-
-
-def dummy_response(request, slug):
-    return HttpResponse()
+from .models import Genre, Album, Band, Label, Music
 
 
 class GenreListView(ListView):
@@ -37,6 +32,11 @@ class AlbumDetailView(DetailView):
     slug_url_kwarg = 'slug'
     context_object_name = 'album'
     template_name = 'musics/album-detail-view.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs = super().get_context_data(**kwargs)
+        kwargs['musics'] = kwargs['album'].musics.all()
+        return kwargs
 
 
 class BandListView(ListView):
@@ -73,3 +73,16 @@ class LabelDetailView(DetailView):
         kwargs = super().get_context_data(**kwargs)
         kwargs['albums'] = kwargs['label'].albums.all()
         return kwargs
+
+
+class MusicListView(ListView):
+    model = Music
+    context_object_name = 'musics'
+    template_name = 'musics/musics-list-view.html'
+
+
+class MusicDetailView(DetailView):
+    model = Music
+    slug_url_kwarg = 'slug'
+    context_object_name = 'music'
+    template_name = 'musics/music-detail-view.html'

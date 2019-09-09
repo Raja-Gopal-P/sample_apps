@@ -21,7 +21,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Music App</a>
+    <a class="navbar-brand" href="{% url 'musics:music-music-list' %}">Music App</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -35,11 +35,12 @@
         </form>
     </div>
     </nav>
+{% block body %}
 <table class="w-100 h-100">
     <tr class="align-top">
         <td class="bg-dark" style="width:15%;overflow:auto;">
             <a class="{% block all-a-class %} bg-dark-url {% endblock %}"
-            href="{% block all-href %} # {% endblock %}">
+            href="{% block all-href %} {% url 'musics:music-music-list' %} {% endblock %}">
                 All Musics
             </a>
             <div class="dropdown-divider"></div>
@@ -68,5 +69,6 @@
         </td>
     </tr>
 </table>
+{% endblock %}
 </body>
 </html>

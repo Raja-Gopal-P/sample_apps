@@ -20,7 +20,7 @@
         {% if album.label %}
         <div>
             Label:
-            <a href="#" class="clickable">{{album.label.name}} </a>
+            <a href="{% url 'musics:music-label-detail' album.label.id %}" class="clickable">{{album.label.name}} </a>
         </div>
         {% endif %}
 
