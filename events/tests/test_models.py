@@ -2,9 +2,9 @@ from django.test import TestCase
 from django.db import models
 from django.contrib.gis.geos import Point
 from django.db.utils import IntegrityError
-from django.utils.timezone import localtime, localdate
+from django.utils.timezone import localtime
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from places.models import City, Place
 
@@ -17,7 +17,8 @@ class EventTestMeta(TestCase):
         self.city = City.objects.create(city_name='City1')
         self.place = Place.objects.create(title='Place1', location=Point(1,2), description='Desc', address='addr',
                                           phone='+91-1234567890', city=self.city, types='Type1', tags='Tag1')
-        self.event = Event.objects.create(title='Event', date=localdate(), place=self.place, )
+        self.event = Event.objects.create(title='Event', date=date(year=2019, month=8, day=26), place=self.place, )
+        self.event2 = Event.objects.create(title='Event1', date=date(year=2019, month=7, day=26), place=self.place, )
 
 
 class EventModelTest(EventTestMeta):
@@ -35,7 +36,7 @@ class EventModelTest(EventTestMeta):
             Event.objects.create(title='Event', date=self.event.date, place=self.place,)
 
     def test_same_event_another_day(self):
-        Event.objects.create(title='Event', date=datetime(year=2019, month=8, day=26).date(), place=self.place,)
+        Event.objects.create(title='Event', date=datetime(year=2019, month=8, day=27).date(), place=self.place,)
 
 
 class EventTimingModelTest(EventTestMeta):
