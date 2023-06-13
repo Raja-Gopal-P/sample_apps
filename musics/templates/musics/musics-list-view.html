@@ -1,0 +1,13 @@
+{% extends 'musics/base.html' %}
+
+{% block title %} Musics {% endblock %}
+
+{% block all-a-class %} bg-dark-url-active {% endblock %}
+
+{% block all-href %} # {% endblock %}
+
+{% block content %}
+<h4> Musics </h4>
+<div class="dropdown-divider"></div>
+{% include 'musics/includes/music-list.html' %}
+{% endblock %}

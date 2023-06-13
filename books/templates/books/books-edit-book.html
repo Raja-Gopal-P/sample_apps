@@ -1,0 +1,17 @@
+{% extends 'books/base.html' %}
+
+{% block title %} Edit Book {% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'books:books-list' %}">Books</a></li>
+  <li class="breadcrumb-item active">dit</li>
+{% endblock %}
+
+{% block content %}
+<form method="post" novalidate enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'books/includes/form.html' %}
+    <input type="submit" class="btn btn-success" value="Save">
+    <a href="{% url 'books:books-list' %}" class="btn btn-outline-secondary">Cancel</a>
+</form>
+{% endblock %}

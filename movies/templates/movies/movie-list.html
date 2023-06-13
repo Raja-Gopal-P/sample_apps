@@ -1,0 +1,21 @@
+{% extends 'movies/base.html' %}
+
+{% block title %} Movies {% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active">Movies</li>
+{% endblock %}
+
+{% block content %}
+<table class="table table-striped mb-4">
+    <tbody>
+    {% for movie in movies %}
+    <tr>
+        <td>
+            <a href="{% url 'movies:movie-detail-view' movie.slug %}">{{ movie.title }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

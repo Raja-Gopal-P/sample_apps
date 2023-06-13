@@ -1,0 +1,13 @@
+{% extends 'musics/base.html' %}
+
+{% block title %} Albums {% endblock %}
+
+{% block albums-a-class %} bg-dark-url-active {% endblock %}
+
+{% block albums-href %} # {% endblock %}
+
+{% block content %}
+<h4> Albums </h4>
+<div class="dropdown-divider"></div>
+{% include 'musics/includes/album-list.html' %}
+{% endblock %}

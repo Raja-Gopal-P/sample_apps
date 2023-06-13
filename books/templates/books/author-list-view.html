@@ -1,0 +1,40 @@
+{% extends 'books/base.html' %}
+
+{% block title %} Author {% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'books:books-list' %}">Books</a></li>
+  <li class="breadcrumb-item active">Authors</li>
+{% endblock %}
+
+{% block nav_bar_contents %}
+<a href="{% url 'books:books-create-author' %}" class="btn btn-outline-secondary ml-2">Create Author</a>
+{% endblock %}
+
+{% block content %}
+
+{% for author in authors %}
+<div class="bookmark">
+    <div class="inline">
+        <span class="clickable"> {{ author.name }} </span>
+    </div>
+    <div class="inline option">
+        <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('author_{{ author.id }}')">
+                <div id="author_{{ author.id }}" class="dropdown-content">
+                    <a href="{% url 'books:books-update-author' author.id %}">
+                        Edit
+                    </a>
+                    <form method="post" action="{% url 'books:books-delete-author' author.id %}"
+                          id="delete_author_form_{{ author.id }}" style="margin-bottom:0px;">
+                        {% csrf_token %}
+                        <a onclick="document.forms['delete_author_form_{{ author.id }}'].submit();">
+                            Delete
+                        </a>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

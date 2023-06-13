@@ -1,0 +1,14 @@
+<table class="table table-striped mb-4">
+    <tbody>
+    {% for music in musics %}
+    <tr>
+        <td>
+            <a class="clickable" href="{% url 'musics:music-music-detail' music.slug %}"> {{ music.title }} </a> <br>
+            {% if music.band %}
+            Band: <a class="clickable" href="{% url 'musics:music-band-detail' music.band.id %}"> {{ music.band.name }} </a>
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>

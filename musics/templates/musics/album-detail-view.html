@@ -1,0 +1,9 @@
+{% extends 'musics/base.html' %}
+
+{% block title %} Musics {% endblock %}
+
+{% block content %}
+<h4> <a href="{% url 'musics:music-album-list' %}"> Albums </a>/ {{ album.title }} </h4>
+<div class="dropdown-divider"></div>
+{% include 'musics/includes/music-list.html' %}
+{% endblock %}

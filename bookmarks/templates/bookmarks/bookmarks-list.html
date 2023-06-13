@@ -1,0 +1,30 @@
+{% extends 'bookmarks/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+</div>
+
+{% for bookmark in bookmarks %}
+<div class="bookmark">
+    <div class="inline">
+        <a href="{{ bookmark.url }}" class="clickable"> {{ bookmark.name }} </a>
+    </div>
+    <div class="inline option">
+        <div class="drop-left-menu-ref" onclick="onDropLeftDivClick('myDropdown_{{ bookmark.id }}')">
+                <div id="myDropdown_{{ bookmark.id }}" class="dropdown-content">
+                    <a onclick="showURLInDialog('my_dialog', 'Edit Bookmark','{% url 'bookmarks:bookmark-update-view' bookmark.id %}');">
+                        Edit bookmark
+                    </a>
+                    <form method="post" action="{% url 'bookmarks:bookmark-delete-view' bookmark.id %}" id="remove_form">
+                        {% csrf_token %}
+                        <a onclick="document.forms['remove_form'].submit();">Remove Bookmark</a>
+                    </form>
+                     <a onclick="showURLInDialog('my_dialog', 'View/Edit Tags','{% url 'bookmarks:bookmark-add-tag-view' bookmark.id %}');">
+                        View/Edit Tags
+                    </a>
+                </div>
+            </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
